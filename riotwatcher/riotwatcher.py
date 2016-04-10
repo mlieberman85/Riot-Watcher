@@ -647,3 +647,21 @@ class RiotWatcher:
 
     def get_teams(self, team_ids, region=None):
         return self._team_request('{team_ids}'.format(team_ids=','.join(str(t) for t in team_ids)), region)
+
+    def get_champion_mastery(self, sum_id, region=None):
+        if region is None:
+            region = self.default_region
+        args = {'api_key': self.key}
+        print(args)
+        r = requests.get(
+            'https://{proxy}.api.pvp.net/championmastery/location/{platformId}/player/{summonerId}/champions'.format(
+                proxy=region,
+                platformId=platforms[region],
+                summonerId=sum_id
+            ),
+            params=args
+        )
+        for lim in self.limits:
+            lim.add_request()
+        raise_status(r)
+        return r.json()
