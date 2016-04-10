@@ -1,7 +1,7 @@
 from setuptools import setup
 import os.path
 
-__version__ = '1.3.2-1'
+__version__ = '1.3.2-post1'
 
 descr_file = os.path.join(os.path.dirname(__file__), 'README.rst')
 
